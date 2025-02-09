@@ -1,54 +1,72 @@
 // El principal objetivo de este desafío es fortalecer tus habilidades en lógica de programación. Aquí deberás desarrollar la lógica para resolver el problema.
 
+//Obtenemos los siguentes elementos del HTML mediante el DOM:
 const inputText = document.getElementById("amigo");
 const btnAñadir = document.getElementById("button-add");
-const btnSortear = document.querySelector('.button-draw');
+const btnSortear = document.querySelector(".button-draw");
+const ulListaAmigos = document.getElementById("listaAmigos");
+const pModalText = document.getElementById("pModalText");
+const ulResultado = document.getElementById("resultado");
 
-btnAñadir.addEventListener("click", ejecutar);
 
+//Creamos una lista para agrupar los nombres de los amigos.
 const arrayAmigos = [];
-const contenedorListaAmigos = document.getElementById("listaAmigos");
+//De forma auxiliar, creamos una variable para guarda el valor del input
 let text = "";
 
+btnAñadir.addEventListener("click", ejecutar); //le adjuntamos el evento clic a nuestro boton de añadir amigos. Esto con la finalidad de que ejecute la funcion 'ejecutar' cuando le demos clic en el boton.
 function ejecutar() {
-    text = inputText.value //texto del input
-
-  if (text !== "") { //verificamos que no este vacio 
+  if (validarInput()) { //evalua si la validacion fue exitosa
+    if (!arrayAmigos.length){ //si la lista esta en cero, entonces:
+      ulResultado.textContent = ""; //eliminamos el texto del ulResultado
+    };
     generarLista(text);
-    inputText.value = ""; //limpia el imput
-  } else {
-    alert("No has ingresado ningun valor en el input. Ingresa un nombre.");
   }
 }
 
-// function generarLista() {
-//   contenedorListaAmigos.textContent = ""; //Limpiar previamente el elemento 'ul'
-//   //?Por cada nombre del arreglo de nombres (arrayAmigos) 
-//   arrayAmigos.forEach((nombre) => {
-//     //creamos un item de lista (listItemNombre)
-//     const listItemNombre = document.createElement("li");
-//     //en dicho item, añadimos el nombre actual del arreglo como contenido de texto
-//     listItemNombre.textContent = nombre;
-//     //agregamos como hijo el elemento 'li' (listItemNombre) ya con su contenido añadido y lo añadimos al elemento 'ul' (contenedorListaAmigos)
-//     contenedorListaAmigos.appendChild(listItemNombre);
-//   });
-// }
-
+function validarInput() {
+  if (inputText.validity.patternMismatch) {
+    //Verifica si el patron regex indicado en el input en el html no se a cumplido.
+    pModalText.textContent =
+      "El nombre ingresado no es valido, intenta nuevamente.";
+  } else if (inputText.value == "") {
+    //verifica si el input tiene texto
+    pModalText.textContent = "Debes ingresar un nombre en dicho campo.";
+  } else {
+    text = inputText.value.trim().toLowerCase(); //Formatea el texto con la fines esteticos.
+    return true;
+  }
+  modal.showModal();
+  return false;
+}
 
 function generarLista(text) {
-    arrayAmigos.push(text);
-    contenedorListaAmigos.textContent = "";
-    arrayAmigos.forEach((nombre) => {
-        contenedorListaAmigos.innerHTML += `<li>${nombre}</li>`;
-    });
+  arrayAmigos.push(text);
+  ulListaAmigos.innerHTML += `<li>${text}</li>`;
+  resetInput();
+}
+
+btnSortear.addEventListener("click", sortear);
+
+function sortear() {
+  const random = Math.floor(Math.random() * arrayAmigos.length);
+  const amigoSecreto = arrayAmigos[random];
+  ulResultado.innerHTML = `<li>El amigo secreto es: ${amigoSecreto}</li>`;
+
+  //Reinicamos la informacion: Limpiamos el ul de amigos y el array de amigos.
+  ulListaAmigos.textContent = "";
+  arrayAmigos.length = ""; //vacia el arreglo
+}
+
+//?Añado un modal de forma nativa para expresar los mensajes de la pagina
+const modal = document.getElementById("modal");
+
+function closeModal() {
+  modal.close();
 };
 
 
-btnSortear.addEventListener('click',sortear);
-
-function sortear(){
-    const random = Math.floor(Math.random()*arrayAmigos.length);
-    const amigoSecreto = arrayAmigos[random];
-    const contentResultado = document.getElementById('resultado');
-    contentResultado.innerHTML = `<li>El amigo secreto es: ${amigoSecreto}</li>`;
+function resetInput() {
+  inputText.value = "";
+  inputText.focus();    
 };

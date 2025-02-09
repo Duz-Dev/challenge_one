@@ -23,7 +23,9 @@
     <section class="input-section">
       <h2 class="section-title">Digite el nombre de sus amigos</h2>
       <div class="input-wrapper">
-        <input type="text" id="amigo" class="input-name" placeholder="Escribe un nombre" />
+        <input type="text" id="amigo" class="input-name" required placeholder="Escribe un nombre"
+          pattern="^[a-zA-ZáéíóúÁÉÍÓÚüÜ]{3,25}( [a-zA-ZáéíóúÁÉÍÓÚüÜ]{3,25})?$"
+          title="Ingrese un nombre válido (máx. 25 caracteres, solo letras)"/>
         <button id="button-add" class="button-add">Añadir</button> <!--agregarAmigo()-->
       </div>
       <ul id="listaAmigos" class="name-list" aria-labelledby="listaAmigos" role="list"></ul>
@@ -36,6 +38,20 @@
         </button>
       </div> <!--sortearAmigo()-->
     </section>
+    <!-- modal para las notificaciones -->
+    <dialog id="modal" class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">error</h3>
+        <button id="btnCloseModal" class="btn-close_modal" onclick="closeModal()" autofocus >x</button>
+      </div>
+      <div class="modal-content">
+      <img class="img-close" src="./assets/close.svg" alt="img close">
+        <p class="modal-text" id="pModalText">El nombre ingresado no es valido, intenta nuevamente.</p>
+      </div>
+        <button class="btn-ok" onClick="closeModal()">ok</button>
+
+    </dialog>
+
   </main>
 
   <script src="app.js" defer></script>
