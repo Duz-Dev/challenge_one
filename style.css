@@ -6,7 +6,7 @@
     --color-button-hover: #e55720;
     --color-text: #444444;
     --color-white: #FFFFFF;
-    --bg-delete:#e7332a;
+    --bg-delete: #e7332a;
 }
 
 
@@ -174,13 +174,14 @@ ul {
     justify-content: space-around;
     gap: 10px;
     padding-block: 10px;
-    width: 90%;
+    min-width: 20%;
+    max-width: 90%;
 }
 
 li {
     border: 2px solid hsl(from var(--color-primary) h s 50%);
     padding: 12px;
-    min-width: 15%;
+    min-width: 17%;
     text-align: center;
     text-transform: capitalize;
     background: var(--color-primary);
@@ -310,10 +311,10 @@ li {
 /*Animaciones*/
 
 /* .Amigos-item { */
-    /* animation: sacudir .5s infinite; */
-    /* animation: bg 1.5s infinite; */
-    /* animation: bgdelete 1.5s infinite; */
-    /* animation:bgdelete 1.5s ease infinite, sacudir .5s infinite; */
+/* animation: sacudir .5s infinite; */
+/* animation: bg 1.5s infinite; */
+/* animation: bgdelete 1.5s infinite; */
+/* animation:bgdelete 1.5s ease infinite, sacudir .5s infinite; */
 
 /* } */
 
@@ -453,9 +454,9 @@ li {
     position: fixed;
     top: 20px;
     right: 20px;
-    background:hsl(from #6fee6f h 60% l);
+    background: hsl(from #6fee6f h 60% l);
     padding: 10px 15px;
-    border:none;
+    border: none;
     font-weight: bold;
 }
 
@@ -481,7 +482,13 @@ lite-youtube {
         font-size: 1.2rem;
     }
 
-    
+
+    li {
+        padding: 20px 30px;
+        font-size: 1.3rem;
+    }
+
+
 }
 
 @media (width >=1024px) {
@@ -494,5 +501,6 @@ lite-youtube {
         padding: 1rem;
         font-size: 1.4rem;
     }
+
 
 }

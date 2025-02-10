@@ -11,8 +11,10 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;700;900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap"
     rel="stylesheet" />
   <title>Amigo Secreto</title>
+  <!-- script para importar un video de youtube sin que consuma tantos recursos en la pagina -->
   <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1/lite-youtube.min.js"></script>
 </head>
+
 <body>
   <main class="main-content">
     <header class="header-banner">
@@ -24,12 +26,14 @@
     <section class="input-section">
       <h2 class="section-title">Digite el nombre de sus amigos</h2>
       <div class="input-wrapper">
+        <!-- añadi al input un patron regex y el atributo required para detectarlo en css y js -->
         <input type="text" id="amigo" class="input-name" required placeholder="Escribe un nombre"
-          pattern="^[a-zA-ZáéíóúÁÉÍÓÚüÜ]{3,25}( [a-zA-ZáéíóúÁÉÍÓÚüÜ]{3,25})?$"
+          pattern="^\s*[a-zA-ZáéíóúÁÉÍÓÚüÜ]{3,25}( [a-zA-ZáéíóúÁÉÍÓÚüÜ]{3,25})?\s*$"
           title="Ingrese un nombre válido (máx. 25 caracteres, solo letras)" />
         <button id="button-add" class="button-add">Añadir</button> <!--agregarAmigo()-->
       </div>
       <ul id="listaAmigos" class="name-list" aria-labelledby="listaAmigos" role="list">
+      <li>pablo</li><li>pablo</li>
       </ul>
       <ul id="resultado" class="result-list" aria-live="polite"></ul>
       <div class="button-container">

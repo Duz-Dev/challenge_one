@@ -36,9 +36,9 @@ function validarInput() {
     pModalText.textContent = "Debes ingresar un nombre en dicho campo.";
   } else {
     text = inputText.value.trim().toLowerCase(); //Formatea el texto con la fines esteticos.
-    return true;
+    return true; //En caso de todo ir bien, retornamos true
   }
-  modal.showModal();
+  modal.showModal(); // si algo fallo, mostramos el modal con la informacion a notificar
   return false;
 }
 
@@ -81,45 +81,67 @@ function sortear() {
 const modal = document.getElementById("modal");
 
 function closeModal() {
-  document.querySelector(".img-close").style.display="block";
+  document.querySelector(".img-close").style.display = "block";
   document.getElementById("youtube").style.display = "none";
   modal.close();
 }
 
+//funcion para limpiar y hacer un foco en el input
 function resetInput() {
   inputText.value = "";
   inputText.focus();
 }
 
+//Logica para añadir eventos a los nombres que aparecen en la lista.
+
 let presionado = false;
+let esTactil = "ontouchstart" in window; // Detecta si el dispositivo es táctil
+
 function addClick(liAmigosItem) {
   liAmigosItem.forEach((item) => {
-    item.addEventListener("mousedown", () => {
+    function iniciarPresion() {
       presionado = true;
-      item.style.border ="1px solid red";
+      item.style.border = "1px solid red";
       item.style.animation =
         "bgdelete 1s ease infinite, sacudir .3s infinite";
+
       setTimeout(() => {
         if (presionado) {
           const id = arrayAmigos.indexOf(item.textContent);
-          arrayAmigos.splice(id, 1);
-          ulListaAmigos.removeChild(item);
+          if (id !== -1) {
+            arrayAmigos.splice(id, 1);
+            ulListaAmigos.removeChild(item);
+          }
         }
       }, 1000);
-    });
+    }
 
-    item.addEventListener("mouseup", () => {
+    function soltarPresion() {
       presionado = false;
-    });
+      item.style.border = "2px solid hsl(from var(--color-primary) h s 50%)";
+      item.style.animation ="none";
+    }
+
+    if (esTactil) {
+      // Si es táctil, solo usamos eventos de touch
+      item.addEventListener("touchstart", iniciarPresion);
+      item.addEventListener("touchend", soltarPresion);
+      item.addEventListener("touchmove", soltarPresion);
+    } else {
+      // Si es un dispositivo con mouse, solo usamos eventos de mouse
+      item.addEventListener("mousedown", iniciarPresion);
+      item.addEventListener("mouseup", soltarPresion);
+      item.addEventListener("mouseleave", soltarPresion);
+    }
   });
 }
-
-btnAyuda.addEventListener("click",()=>{
+//Contenido del modal cuando usamos el elemento de ayuda
+btnAyuda.addEventListener("click", () => {
   const modalTitle = document.querySelector(".modal-title");
   const modalContent = document.querySelector(".modal-content");
-  document.querySelector(".img-close").style.display="none";
+  document.querySelector(".img-close").style.display = "none";
   modalTitle.textContent = "Challenge: Tu amigo secreto (GUIA)";
   pModalText.textContent = "";
   document.getElementById("youtube").style.display = "block";
   modal.showModal();
-})
+});
