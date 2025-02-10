@@ -11,13 +11,14 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;700;900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap"
     rel="stylesheet" />
   <title>Amigo Secreto</title>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@justinribeiro/lite-youtube@1/lite-youtube.min.js"></script>
 </head>
-
 <body>
   <main class="main-content">
     <header class="header-banner">
       <h1 class="main-title">Amigo Secreto</h1>
       <img src="assets/amigo-secreto.png" alt="Imagen representativa de amigo secreto" />
+      <button id="btn-ayuda" class="btn-ayuda">guia</button>
     </header>
 
     <section class="input-section">
@@ -25,12 +26,12 @@
       <div class="input-wrapper">
         <input type="text" id="amigo" class="input-name" required placeholder="Escribe un nombre"
           pattern="^[a-zA-ZáéíóúÁÉÍÓÚüÜ]{3,25}( [a-zA-ZáéíóúÁÉÍÓÚüÜ]{3,25})?$"
-          title="Ingrese un nombre válido (máx. 25 caracteres, solo letras)"/>
+          title="Ingrese un nombre válido (máx. 25 caracteres, solo letras)" />
         <button id="button-add" class="button-add">Añadir</button> <!--agregarAmigo()-->
       </div>
-      <ul id="listaAmigos" class="name-list" aria-labelledby="listaAmigos" role="list"></ul>
+      <ul id="listaAmigos" class="name-list" aria-labelledby="listaAmigos" role="list">
+      </ul>
       <ul id="resultado" class="result-list" aria-live="polite"></ul>
-
       <div class="button-container">
         <button class="button-draw" aria-label="Sortear amigo secreto">
           <img src="assets/play_circle_outline.png" alt="Ícono para sortear" />
@@ -42,16 +43,16 @@
     <dialog id="modal" class="modal">
       <div class="modal-header">
         <h3 class="modal-title">error</h3>
-        <button id="btnCloseModal" class="btn-close_modal" onclick="closeModal()" autofocus >x</button>
+        <button id="btnCloseModal" class="btn-close_modal" onclick="closeModal()" autofocus>x</button>
       </div>
       <div class="modal-content">
-      <img class="img-close" src="./assets/close.svg" alt="img close">
+        <img class="img-close" src="./assets/close.svg" alt="img close">
         <p class="modal-text" id="pModalText">El nombre ingresado no es valido, intenta nuevamente.</p>
+        <lite-youtube id="youtube" videoid="ntyaRXf_Eag"></lite-youtube>
+
       </div>
-        <button class="btn-ok" onClick="closeModal()">ok</button>
-
+      <button class="btn-ok" onClick="closeModal()">ok</button>
     </dialog>
-
   </main>
 
   <script src="app.js" defer></script>
