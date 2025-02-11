@@ -83,6 +83,7 @@ const modal = document.getElementById("modal");
 function closeModal() {
   document.querySelector(".img-close").style.display = "block";
   document.getElementById("youtube").style.display = "none";
+  pauseVideo(); //En caso de que el modal tenga un video, lo pausa antes de cerrarlo.
   modal.close();
 }
 
@@ -102,8 +103,7 @@ function addClick(liAmigosItem) {
     function iniciarPresion() {
       presionado = true;
       item.style.border = "1px solid red";
-      item.style.animation =
-        "bgdelete 1s ease infinite, sacudir .3s infinite";
+      item.style.animation = "bgdelete 1s ease infinite, sacudir .3s infinite";
 
       setTimeout(() => {
         if (presionado) {
@@ -119,7 +119,7 @@ function addClick(liAmigosItem) {
     function soltarPresion() {
       presionado = false;
       item.style.border = "2px solid hsl(from var(--color-primary) h s 50%)";
-      item.style.animation ="none";
+      item.style.animation = "none";
     }
 
     if (esTactil) {
@@ -145,3 +145,27 @@ btnAyuda.addEventListener("click", () => {
   document.getElementById("youtube").style.display = "block";
   modal.showModal();
 });
+
+const video = document.getElementById("youtube");
+let iframe = null;
+video.addEventListener("liteYoutubeIframeLoaded", () => {
+  // Obtenemos el iframe dentro del Shadow DOM. Como es un webcomponent debemos acceder a un nivel mas profundo a le iframe del video.
+  iframe = video.shadowRoot.querySelector("iframe");
+});
+
+function pauseVideo() {
+  //Si existe el iframe:
+  if (iframe) {
+    // Función para pausar el video
+
+    iframe.contentWindow.postMessage(
+      //usamos postMessage para enviar un comando a la API de YouTube.
+      JSON.stringify({
+        event: "command",
+        func: "pauseVideo",
+        args: "",
+      }),
+      "*"
+    );
+  }
+}
