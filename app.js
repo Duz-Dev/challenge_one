@@ -46,7 +46,7 @@ function generarLista(text) {
   if (!arrayAmigos.includes(text)) {
     //verifica si aun no existe el amigo en la lista:
     arrayAmigos.push(text);
-    ulListaAmigos.innerHTML += `<li class="Amigos-item">${text}</li>`;
+    ulListaAmigos.innerHTML += `<li class="Amigos-item" title="Eliminar amigo">${text}</li>`;
     const liAmigosItem = document.querySelectorAll(".Amigos-item");
     addClick(liAmigosItem);
   } else {

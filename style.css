@@ -308,6 +308,22 @@ li {
     }
 }
 
+.Amigos-item {
+    position: relative;
+}
+
+.Amigos-item:after {
+    content: "x";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    background: hsl(from var(--color-primary) h 10% 60%);
+    padding-inline: 2.5px;
+}
 /*Animaciones*/
 
 /* .Amigos-item { */
